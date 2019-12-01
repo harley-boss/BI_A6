@@ -49,6 +49,9 @@ namespace SurveyParser {
                         }
                     }
                 }
+                if (entries.Count() > 0) {
+                    dbm.BulkInsert(entries);
+                }
                 reader.Close();
                 Console.WriteLine($"Read {counter} lines from file");
             }
@@ -77,8 +80,11 @@ namespace SurveyParser {
                 entity.COWD = getValue(temp);
 
                 // Need this value? -- doesn't seem to be getting parsed correctly
+
                 stream.ReadLine();
-                //entity.Value = Int32.Parse(getValue(stream.ReadLine()));
+                stream.ReadLine();
+                stream.ReadLine();
+                entity.Value = Int32.Parse(getValue(stream.ReadLine()));
             } catch (Exception ex) {
                 entity = null;
             }
