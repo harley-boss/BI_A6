@@ -1,8 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿/// File:        DataEntity.cs
+/// Assignment:  A6 Big Data
+/// Application: SurveyParser
+/// Class:       Business Intelligence
+/// Programmers: Harley Boss & Justin Struk
+/// Date:        December 2nd 2019
+/// Description: A shallow class representing a data entry from the survey .xml file
+
+
+using System;
 
 namespace SurveyParser {
     class DataEntity {

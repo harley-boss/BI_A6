@@ -1,9 +1,26 @@
-﻿using System;
+﻿/// File:        DatabaseManager.cs
+/// Assignment:  A6 Big Data
+/// Application: SurveyParser
+/// Class:       Business Intelligence
+/// Programmers: Harley Boss & Justin Struk
+/// Date:        December 2nd 2019
+/// Description: This file handles connection to and insertion of data into the SQL server
+///              database running locally
+
+
+
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 
 namespace SurveyParser {
+
+
+
+    /// <summary>
+    /// Class responsible for handling all the database queries
+    /// </summary>
     class DatabaseManager {
 
         private SqlConnection sqlConnection;
@@ -12,6 +29,15 @@ namespace SurveyParser {
         private String tableName = "Data";
 
 
+
+
+        /// <summary>
+        /// Instantiates a database connection either with integrated security or a username and
+        /// password if provided
+        /// </summary>
+        /// <param name="machineName">Machine name of the computer to connect to</param>
+        /// <param name="userName">Username if required</param>
+        /// <param name="password">Password if required</param>
         public DatabaseManager(String machineName, String userName = "", String password = "") {
             connString = "Data Source=" + machineName + ";Initial Catalog=" + databaseName + ";";
             if (userName == "" || password == "") {
@@ -22,6 +48,13 @@ namespace SurveyParser {
             sqlConnection = new SqlConnection(connString);
         }
 
+
+
+
+        /// <summary>
+        /// Tests a connection to the database
+        /// </summary>
+        /// <returns>True if connection has been established</returns>
         public Boolean IsConnected() {
             Boolean isConnected = true;
             try {
@@ -38,6 +71,14 @@ namespace SurveyParser {
             return isConnected;
         }
 
+
+
+
+        /// <summary>
+        /// Inserts thousands of records at a time into the database
+        /// </summary>
+        /// <param name="entities">List of DataEntiity objects</param>
+        /// <returns>True if insert was successful, false otherwise</returns>
         public bool BulkInsert(List<DataEntity> entities) {
             // connect to SQL
             DataTable dt = new DataTable();
@@ -87,115 +128,126 @@ namespace SurveyParser {
                 return false;
             }
         }
-        public int insertGeo(string id, string desc)
-        {
+
+
+
+
+        /// <summary>
+        /// Inserts a Geography description into the database
+        /// </summary>
+        /// <param name="id">Id of object</param>
+        /// <param name="desc">Description of object</param>
+        /// <returns>int of the row number where record was inserted</returns>
+        public int InsertGeo(string id, string desc) {
             int numRows = 0;
-            using (SqlConnection openCon = new SqlConnection(connString))
-            {
+            using (SqlConnection openCon = new SqlConnection(connString)) {
                 string saveStaff = "INSERT into GEO (GeoID,description) VALUES (@GeoID,@description)";
 
-                using (SqlCommand querySaveGeo = new SqlCommand(saveStaff))
-                {
+                using (SqlCommand querySaveGeo = new SqlCommand(saveStaff)) {
                     querySaveGeo.Connection = openCon;
                     querySaveGeo.Parameters.Add("@GeoID", SqlDbType.VarChar, 50).Value = id;
                     querySaveGeo.Parameters.Add("@description", SqlDbType.NVarChar, 50).Value = desc;
 
                     openCon.Open();
 
-                    try
-                    {
+                    try {
                         numRows = querySaveGeo.ExecuteNonQuery();
-                    }
-                    catch (SqlException e)
-                    {
+                    } catch (SqlException e) {
                         Console.WriteLine("Error: {0}", e.Message);
                     }
-
                 }
             }
             return numRows;
         }
 
-        public int insertAgeGroup(string id, string desc)
-        {
+
+
+
+        /// <summary>
+        /// Inserts an Agegroup entry into the database
+        /// </summary>
+        /// <param name="id">Id of the object</param>
+        /// <param name="desc">Description of the object</param>
+        /// <returns>int of the row number where record was inserted</returns>
+        public int InsertAgeGroup(string id, string desc) {
             int numRows = 0;
-            using (SqlConnection openCon = new SqlConnection(connString))
-            {
+            using (SqlConnection openCon = new SqlConnection(connString)) {
                 string saveStaff = "INSERT into AgeGroup (GroupID,description) VALUES (@GroupID,@description)";
 
-                using (SqlCommand querySaveGeo = new SqlCommand(saveStaff))
-                {
+                using (SqlCommand querySaveGeo = new SqlCommand(saveStaff)) {
                     querySaveGeo.Connection = openCon;
                     querySaveGeo.Parameters.Add("@GroupID", SqlDbType.VarChar, 50).Value = id;
                     querySaveGeo.Parameters.Add("@description", SqlDbType.NVarChar, 50).Value = desc;
 
                     openCon.Open();
 
-                    try
-                    {
+                    try {
                         numRows = querySaveGeo.ExecuteNonQuery();
-                    }
-                    catch (SqlException e)
-                    {
+                    } catch (SqlException e) {
                         Console.WriteLine("Error: {0}", e.Message);
                     }
-
                 }
             }
             return numRows;
         }
-        public int insertSex(string id, string desc)
-        {
+
+
+
+
+        /// <summary>
+        /// Inserts a Sex entry into the database
+        /// </summary>
+        /// <param name="id">Id of the object</param>
+        /// <param name="desc">Description of the object</param>
+        /// <returns>int of the row number where record was inserted</returns>
+        public int InsertSex(string id, string desc) {
             int numRows = 0;
-            using (SqlConnection openCon = new SqlConnection(connString))
-            {
+            using (SqlConnection openCon = new SqlConnection(connString)) {
                 string saveStaff = "INSERT into SEX (SexID,description) VALUES (@SexID,@description)";
 
-                using (SqlCommand querySaveGeo = new SqlCommand(saveStaff))
-                {
+                using (SqlCommand querySaveGeo = new SqlCommand(saveStaff)) {
                     querySaveGeo.Connection = openCon;
                     querySaveGeo.Parameters.Add("@SexID", SqlDbType.VarChar, 50).Value = id;
                     querySaveGeo.Parameters.Add("@description", SqlDbType.VarChar, 50).Value = desc;
 
                     openCon.Open();
 
-                    try
-                    {
+                    try {
                         numRows = querySaveGeo.ExecuteNonQuery();
-                    }
-                    catch (SqlException e)
-                    {
+                    } catch (SqlException e) {
                         Console.WriteLine("Error: {0}", e.Message);
                     }
-
                 }
             }
             return numRows;
         }
-        public int insertNOC(string id, string desc)
-        {
+
+
+
+
+        /// <summary>
+        /// Inserts a NOC entry into the database
+        /// </summary>
+        /// <param name="id">Id of the object</param>
+        /// <param name="desc">Description of the object</param>
+        /// <returns>int of the row number where record was inserted</returns>
+        public int InsertNOC(string id, string desc) {
             int numRows = 0;
-            using (SqlConnection openCon = new SqlConnection(connString))
-            {
+            using (SqlConnection openCon = new SqlConnection(connString)) {
                 string saveStaff = "INSERT into NOC (NocID,description) VALUES (@NocID,@description)";
 
-                using (SqlCommand querySaveGeo = new SqlCommand(saveStaff))
-                {
+                using (SqlCommand querySaveGeo = new SqlCommand(saveStaff)) {
                     querySaveGeo.Connection = openCon;
                     querySaveGeo.Parameters.Add("@NocID", SqlDbType.VarChar, 50).Value = id;
                     querySaveGeo.Parameters.Add("@description", SqlDbType.NVarChar, 50).Value = desc;
 
                     openCon.Open();
 
-                    try
-                    {
+                    try {
                         numRows = querySaveGeo.ExecuteNonQuery();
-                    }
-                    catch (SqlException e)
-                    {
+                    } catch (SqlException e) {
                         Console.WriteLine("Error: {0}", e.Message);
                     }
-
                 }
             }
             return numRows;
