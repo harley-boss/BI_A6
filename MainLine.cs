@@ -9,6 +9,8 @@ namespace SurveyParser {
         static void Main(string[] args) {
             FileReader reader = new FileReader();
             reader.HandleFile();
+            StructureDataParser structureparser = new StructureDataParser();
+            structureparser.parseStructureFile();
         }
     }
 }

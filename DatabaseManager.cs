@@ -87,5 +87,118 @@ namespace SurveyParser {
                 return false;
             }
         }
+        public int insertGeo(string id, string desc)
+        {
+            int numRows = 0;
+            using (SqlConnection openCon = new SqlConnection(connString))
+            {
+                string saveStaff = "INSERT into GEO (GeoID,description) VALUES (@GeoID,@description)";
+
+                using (SqlCommand querySaveGeo = new SqlCommand(saveStaff))
+                {
+                    querySaveGeo.Connection = openCon;
+                    querySaveGeo.Parameters.Add("@GeoID", SqlDbType.VarChar, 50).Value = id;
+                    querySaveGeo.Parameters.Add("@description", SqlDbType.NVarChar, 50).Value = desc;
+
+                    openCon.Open();
+
+                    try
+                    {
+                        numRows = querySaveGeo.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+                        Console.WriteLine("Error: {0}", e.Message);
+                    }
+
+                }
+            }
+            return numRows;
+        }
+
+        public int insertAgeGroup(string id, string desc)
+        {
+            int numRows = 0;
+            using (SqlConnection openCon = new SqlConnection(connString))
+            {
+                string saveStaff = "INSERT into AgeGroup (GroupID,description) VALUES (@GroupID,@description)";
+
+                using (SqlCommand querySaveGeo = new SqlCommand(saveStaff))
+                {
+                    querySaveGeo.Connection = openCon;
+                    querySaveGeo.Parameters.Add("@GroupID", SqlDbType.VarChar, 50).Value = id;
+                    querySaveGeo.Parameters.Add("@description", SqlDbType.NVarChar, 50).Value = desc;
+
+                    openCon.Open();
+
+                    try
+                    {
+                        numRows = querySaveGeo.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+                        Console.WriteLine("Error: {0}", e.Message);
+                    }
+
+                }
+            }
+            return numRows;
+        }
+        public int insertSex(string id, string desc)
+        {
+            int numRows = 0;
+            using (SqlConnection openCon = new SqlConnection(connString))
+            {
+                string saveStaff = "INSERT into SEX (SexID,description) VALUES (@SexID,@description)";
+
+                using (SqlCommand querySaveGeo = new SqlCommand(saveStaff))
+                {
+                    querySaveGeo.Connection = openCon;
+                    querySaveGeo.Parameters.Add("@SexID", SqlDbType.VarChar, 50).Value = id;
+                    querySaveGeo.Parameters.Add("@description", SqlDbType.VarChar, 50).Value = desc;
+
+                    openCon.Open();
+
+                    try
+                    {
+                        numRows = querySaveGeo.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+                        Console.WriteLine("Error: {0}", e.Message);
+                    }
+
+                }
+            }
+            return numRows;
+        }
+        public int insertNOC(string id, string desc)
+        {
+            int numRows = 0;
+            using (SqlConnection openCon = new SqlConnection(connString))
+            {
+                string saveStaff = "INSERT into NOC (NocID,description) VALUES (@NocID,@description)";
+
+                using (SqlCommand querySaveGeo = new SqlCommand(saveStaff))
+                {
+                    querySaveGeo.Connection = openCon;
+                    querySaveGeo.Parameters.Add("@NocID", SqlDbType.VarChar, 50).Value = id;
+                    querySaveGeo.Parameters.Add("@description", SqlDbType.NVarChar, 50).Value = desc;
+
+                    openCon.Open();
+
+                    try
+                    {
+                        numRows = querySaveGeo.ExecuteNonQuery();
+                    }
+                    catch (SqlException e)
+                    {
+                        Console.WriteLine("Error: {0}", e.Message);
+                    }
+
+                }
+            }
+            return numRows;
+        }
     }
 }
